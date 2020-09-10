@@ -8,6 +8,7 @@ import prilax.yk.dto.common.ApiUtilDto;
 import prilax.yk.dto.user.*;
 import prilax.yk.entity.user.User;
 import prilax.yk.error.exception.BadRequestException;
+import prilax.yk.error.exception.ConflictRequestException;
 import prilax.yk.error.exception.NotFoundException;
 import prilax.yk.service.common.CommonService;
 import prilax.yk.util.Util;
@@ -51,6 +52,10 @@ public class UserService {
     public ActionResponseDto register(RegistrationDto registrationDto) {
 
         ActionResponseDto res = new ActionResponseDto();
+
+        Optional<User> userOpt = userRepository.findUsersByMobileNo(registrationDto.getMobileNo());
+        if (userOpt.isPresent())
+            throw  new ConflictRequestException("Existing user found.");
 
         User user = new User();
         user.setEmail(registrationDto.getEmail());

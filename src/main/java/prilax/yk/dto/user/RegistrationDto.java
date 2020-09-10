@@ -1,15 +1,20 @@
 package prilax.yk.dto.user;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class RegistrationDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotEmpty
     private String email;
 
+    @NotEmpty
     private String mobileNo;
 
+    @NotEmpty
     private String name;
 
     public String getEmail() {
